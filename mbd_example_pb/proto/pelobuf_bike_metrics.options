@@ -1,0 +1,4 @@
+# nanopb options for firmware targets
+
+LoadCellDataResponse.data    max_count:10
+

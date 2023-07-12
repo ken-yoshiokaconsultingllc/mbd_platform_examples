@@ -1,0 +1,49 @@
+// Messages for updating settings generally common to all products
+
+syntax = "proto2";
+
+///////////////////////////////////////
+// PelobufSettings Message Container
+///////////////////////////////////////
+message PelobufSettings {
+  oneof id {
+
+    TimeRequest  time_req                  = 2;
+    TimeResponse time_resp                 = 3;
+    EnterDFUModeRequest  dfumode_req       = 4;
+    EnterDFUModeResponse  dfumode_resp     = 5;
+
+  }
+}
+
+///////////////////////////
+// Time Message
+///////////////////////////
+
+message TimeRequest {
+  message TimeData {
+    required uint32 year     = 1;
+    required uint32 month    = 2;
+    required uint32 day      = 3;
+    required uint32 hour     = 4;
+    required uint32 minute   = 5;
+    required uint32 second   = 6;
+    required uint32 millis   = 7;
+  }
+
+  // If this field is omitted, the current time will be returned
+  optional TimeData time_val = 1;
+}
+
+message TimeResponse {
+  required TimeRequest.TimeData time_val = 1;
+}
+
+///////////////////////////
+// CMD to enter in to DFU Mode
+///////////////////////////
+message EnterDFUModeRequest {
+}
+
+message EnterDFUModeResponse {   //#TODO need to send response and reset the system?
+}

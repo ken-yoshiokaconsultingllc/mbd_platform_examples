@@ -1,0 +1,8 @@
+# nanopb options for firmware targets
+
+VersionInfoResponse.VersionItem.metadata       max_size:20
+VersionInfoResponse.item                       max_count:4
+
+SerialNumberListResponse.SerialNumber.value    max_size:20
+SerialNumberListResponse.item                  max_count:4
+

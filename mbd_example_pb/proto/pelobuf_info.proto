@@ -1,0 +1,88 @@
+// Messages for reporting information generally common to all products
+
+syntax = "proto2";
+
+//////////////////////////////////
+// PelobufInfo Message Container
+//////////////////////////////////
+message PelobufInfo {
+  oneof id {
+    
+    PlatformRequest  platform_req            = 2;
+    PlatformResponse platform_resp           = 3;
+
+    VersionInfoRequest  version_req          = 4;
+    VersionInfoResponse version_resp         = 5;
+
+    SerialNumberListRequest  serial_num_req  = 6;
+    SerialNumberListResponse serial_num_resp = 7;
+  }
+}
+
+///////////////////////////
+// Platform ID Message
+///////////////////////////
+
+message PlatformRequest {
+}
+
+// These correspond to the USB PID values defined here:
+// https://pelotoncycle.atlassian.net/wiki/spaces/PLAT/pages/40658174388/Peloton+USB+VID+PID+values
+message PlatformResponse {
+  enum PlatformID {
+    PRISM   = 0xA004;
+    TITAN   = 0xA005;
+    CAESAR  = 0xA006;
+    RHEA    = 0xA007;
+  };
+  required PlatformID id = 1;
+}
+
+
+///////////////////////////
+// VersionInfo Message
+///////////////////////////
+
+message VersionInfoRequest {
+  enum VersionID {
+    APP        = 1;
+    BOOTLOADER = 2;
+  }
+  optional VersionID id = 1;
+}
+
+message VersionInfoResponse {
+  message VersionItem {
+    required VersionInfoRequest.VersionID id = 1;
+    required uint32 version_major            = 2;
+    required uint32 version_minor            = 3;
+    required uint32 version_patch            = 4;
+    optional string metadata                 = 5;
+  }
+  repeated VersionItem item = 1;
+}
+
+
+//////////////////////////////////
+// SerialNumberList Message
+//////////////////////////////////
+
+enum SerialNumberID {
+  PELOTON_SERIAL_NUM      = 1;
+  CHASSIS_SERIAL_NUM      = 2;
+  SENSOR_BOARD_SERIAL_NUM = 3;
+  LOAD_SENSOR_SERIAL_NUM  = 4;
+}
+
+message SerialNumberListRequest {
+  optional SerialNumberID id = 1;
+}
+
+message SerialNumberListResponse {
+  message SerialNumber {
+    required SerialNumberID id = 1;
+    required bytes value       = 2;
+  }
+  repeated SerialNumber item = 1;
+}
+

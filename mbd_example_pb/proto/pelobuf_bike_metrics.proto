@@ -1,0 +1,165 @@
+// Data messages for bike products
+
+syntax = "proto2";
+
+/////////////////////////////////////////////
+// PelobufBikeMetrics Message Container
+/////////////////////////////////////////////
+
+// Top level container for all the messages in this module
+message PelobufBikeMetrics {
+  oneof id {
+    WorkoutDataRequest  workout_data_req        = 2; 
+    WorkoutDataResponse workout_data_resp       = 3;
+
+    RpmRequest  rpm_req                         = 4; // This is provided for direct access, also in workout_data. Remove?
+    RpmResponse rpm_resp                        = 5; // This is provided for direct access, also in workout_data. Remove?
+
+    ResistanceRequest  resistance_req           = 6; // This is provided for direct access, also in workout_data. Remove?
+    ResistanceResponse resistance_resp          = 7; // This is provided for direct access, also in workout_data. Remove?
+
+    PowerRequest  power_req                     = 8; // This is provided for direct access, also in workout_data. Remove?
+    PowerResponse power_resp                    = 9; // This is provided for direct access, also in workout_data. Remove?
+
+    LoadCellReadingRequest  lc_reading_req      = 10;
+    LoadCellReadingResponse lc_reading_resp     = 11;
+
+    LoadCellDataRequest  lc_data_req            = 12;
+    LoadCellDataResponse lc_data_resp           = 13;
+
+    StepperMotorDataRequest  stepper_data_req   = 14;
+    StepperMotorDataResponse stepper_data_resp  = 15;
+
+    ResistanceDataRequest  resistance_data_req  = 16;
+    ResistanceDataResponse resistance_data_resp = 17;
+
+    EncoderDataRequest  encoder_data_req        = 18;
+    EncoderDataResponse encoder_data_resp       = 19;
+  }
+}
+
+
+///////////////////////////
+// WorkoutData Message
+///////////////////////////
+message WorkoutDataRequest {
+}
+
+message WorkoutDataResponse {
+  optional RpmResponse rpm               = 1;
+  optional ResistanceResponse resistance = 2;
+  optional PowerResponse power           = 3;
+}
+
+
+///////////////////////////
+// RPM Message
+///////////////////////////
+
+message RpmRequest {
+}
+
+message RpmResponse {
+  required uint32 rpm = 1;
+  enum Direction {
+    FORWARD  = 1;
+    BACKWARD = 2;
+  }
+  optional Direction direction = 2;
+}
+
+
+///////////////////////////
+// Resistance Message
+///////////////////////////
+
+message ResistanceRequest {
+}
+
+message ResistanceResponse {
+  optional uint32 current = 1;
+  optional uint32 target  = 2;
+}
+
+
+//////////////////////////////////
+// Power Message
+//////////////////////////////////
+
+message PowerRequest {
+}
+
+message PowerResponse {
+  optional uint32 current = 1;
+}
+
+
+//////////////////////////////////
+// LoadCellReading Message
+//////////////////////////////////
+
+message LoadCellReadingRequest {
+}
+
+message LoadCellReadingResponse {
+  optional int32 filtered_val = 1;
+  optional bool table_valid   = 2;
+}
+
+
+//////////////////////////////////
+// LoadCellData Message
+//////////////////////////////////
+message LoadCellDataRequest {
+}
+
+message LoadCellDataResponse {
+  optional bool valid       = 1;
+  repeated float data       = 2 [packed=true];
+  optional float offset     = 3;
+  optional uint32 zero_data = 4;
+  optional uint32 cal_span  = 5;
+}
+
+
+//////////////////////////////////
+// StepperMotorData Message
+//////////////////////////////////
+
+message StepperMotorDataRequest {
+}
+
+message StepperMotorDataResponse {
+  optional uint32 abs_pos         = 1;
+  optional uint32 start           = 2;
+  optional uint32 end             = 3;
+  optional uint32 stall_threshold = 4;
+}
+
+
+//////////////////////////////////
+// ResistanceData Message
+//////////////////////////////////
+
+message ResistanceDataRequest {
+}
+
+message ResistanceDataResponse {
+  optional float offset          = 1;
+  optional int32 position_offset = 2;
+  optional uint32 v1_eqivalent   = 3;
+}
+
+
+//////////////////////////////////
+// EncoderData Message
+//////////////////////////////////
+
+message EncoderDataRequest {
+}
+
+message EncoderDataResponse {
+  optional uint32 angle                  = 1;
+  optional int32 applied_position_offset = 2;
+}
+

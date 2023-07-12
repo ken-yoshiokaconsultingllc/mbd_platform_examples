@@ -1,0 +1,17 @@
+// Top level container for all Pelobuf messages
+
+syntax = "proto2";
+import "pelobuf_info.proto";
+import "pelobuf_bike_metrics.proto";
+import "pelobuf_settings.proto";
+
+message PelobufMessage {
+  oneof top {
+    PelobufInfo info             = 1;
+    PelobufBikeMetrics bike_data = 2;
+    PelobufSettings settings     = 3;
+  }
+  optional uint32 error_code     = 127;	// This is only set by the client when there
+                                        // is an error in the request packet.
+}
+

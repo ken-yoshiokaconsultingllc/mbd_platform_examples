@@ -1,0 +1,24 @@
+# Extensions
+*.slxc
+*.asv
+*.autosave
+
+# Build output
+*.lst
+*.hex
+*.elf
+
+# Directories
+slprj/
+*.mbd/
+mbd_types/
+*_ert_rtw/
+**/mbd_dfp_*/*
+!**/mbd_dfp_*/*.ioc
+
+# Log files
+log.*
+MPLABXLog.*
+
+# Temp files
+mbd_configurator_script.txt
